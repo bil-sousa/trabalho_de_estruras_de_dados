@@ -1,0 +1,69 @@
+// Classe que define um nó da árvore binária
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    public Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+// Classe que representa a árvore binária e seus métodos de caminhamento
+public class BinaryTree {
+
+    Node root;
+
+    public BinaryTree() {
+        this.root = null;
+    }
+
+    // Caminhamento Pré-ordem: raiz, esquerda, direita
+    public void preOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node.data + " ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+    // Caminhamento Em-ordem: esquerda, raiz, direita
+    public void inOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.out.print(node.data + " ");
+        inOrder(node.right);
+    }
+
+    // Caminhamento Pós-ordem: esquerda, direita, raiz
+    public void postOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.print(node.data + " ");
+    }
+
+    public static void main(String[] args) {
+        // Criando uma árvore binária de exemplo
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+
+        System.out.println("Caminhamento Pré-ordem:");
+        tree.preOrder(tree.root); // Saída esperada: 1 2 4 5 3
+        System.out.println("\nCaminhamento Em-ordem:");
+        tree.inOrder(tree.root);  // Saída esperada: 4 2 5 1 3
+        System.out.println("\nCaminhamento Pós-ordem:");
+        tree.postOrder(tree.root); // Saída esperada: 4 5 2 3 1
+    }
+}
