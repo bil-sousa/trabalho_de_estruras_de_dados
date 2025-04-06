@@ -1,0 +1,72 @@
+// Interface que define o "contrato" que as implementações devem seguir
+public interface OperacoesMatriz {
+    double[][] criarMatriz(int linhas, int colunas, double[] valores);
+    double calcularTraco(double[][] matriz);
+    double[][] calcularTransposta(double[][] matriz);
+}
+
+// Implementação concreta da interface
+class MatrizOperacoesImpl implements OperacoesMatriz {
+
+    // Cria uma matriz preenchida com os valores informados
+    @Override
+    public double[][] criarMatriz(int linhas, int colunas, double[] valores) {
+        double[][] matriz = new double[linhas][colunas];
+        int index = 0;
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                matriz[i][j] = valores[index++];
+            }
+        }
+        return matriz;
+    }
+
+    // Calcula o traço da matriz (soma dos elementos da diagonal principal)
+    @Override
+    public double calcularTraco(double[][] matriz) {
+        double traco = 0;
+        for (int i = 0; i < Math.min(matriz.length, matriz[0].length); i++) {
+            traco += matriz[i][i];
+        }
+        return traco;
+    }
+
+    // Calcula e retorna a matriz transposta
+    @Override
+    public double[][] calcularTransposta(double[][] matriz) {
+        int linhas = matriz.length;
+        int colunas = matriz[0].length;
+        double[][] transposta = new double[colunas][linhas];
+        for (int i = 0; i < linhas; i++) {
+            for (int j = 0; j < colunas; j++) {
+                transposta[j][i] = matriz[i][j];
+            }
+        }
+        return transposta;
+    }
+}
+
+// Classe principal que simula o uso da interface (como fariam os cientistas)
+public class AplicativoMatriz {
+    public static void main(String[] args) {
+        // Criamos um objeto que segue o contrato da interface
+        OperacoesMatriz operacoes = new MatrizOperacoesImpl();
+
+        // Exemplo: criando uma matriz 2x2 com os dados fornecidos
+        double[] dados = {1, 2, 3, 4};
+        double[][] matriz = operacoes.criarMatriz(2, 2, dados);
+
+        // Mostrando o traço da matriz
+        System.out.println("Traço: " + operacoes.calcularTraco(matriz));
+
+        // Obtendo e exibindo a matriz transposta
+        double[][] transposta = operacoes.calcularTransposta(matriz);
+        System.out.println("Matriz Transposta:");
+        for (double[] linha : transposta) {
+            for (double valor : linha) {
+                System.out.print(valor + " ");
+            }
+            System.out.println();
+        }
+    }
+}
