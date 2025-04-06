@@ -1,0 +1,81 @@
+// Classe que representa um nó da árvore
+class No {
+    int valor;
+    No esquerda, direita;
+
+    public No(int valor) {
+        this.valor = valor;
+        esquerda = direita = null;
+    }
+}
+
+// Classe da Árvore Binária de Busca
+public class ArvoreBinariaBusca {
+    No raiz;
+
+    public ArvoreBinariaBusca() {
+        raiz = null;
+    }
+
+    // Inserção de um novo valor na árvore
+    public void inserir(int valor) {
+        raiz = inserirRecursivo(raiz, valor);
+    }
+
+    private No inserirRecursivo(No atual, int valor) {
+        if (atual == null) {
+            return new No(valor);
+        }
+
+        if (valor < atual.valor) {
+            atual.esquerda = inserirRecursivo(atual.esquerda, valor);
+        } else if (valor > atual.valor) {
+            atual.direita = inserirRecursivo(atual.direita, valor);
+        }
+
+        return atual;
+    }
+
+    // Busca por um valor na árvore
+    public boolean buscar(int valor) {
+        return buscarRecursivo(raiz, valor);
+    }
+
+    private boolean buscarRecursivo(No atual, int valor) {
+        if (atual == null) {
+            return false; // Valor não encontrado
+        }
+
+        if (valor == atual.valor) {
+            return true; // Valor encontrado
+        }
+
+        if (valor < atual.valor) {
+            return buscarRecursivo(atual.esquerda, valor); // Busca na esquerda
+        } else {
+            return buscarRecursivo(atual.direita, valor); // Busca na direita
+        }
+    }
+
+    // Método principal para testar
+    public static void main(String[] args) {
+        ArvoreBinariaBusca arvore = new ArvoreBinariaBusca();
+
+        // Inserindo valores
+        arvore.inserir(50);
+        arvore.inserir(30);
+        arvore.inserir(70);
+        arvore.inserir(20);
+        arvore.inserir(40);
+        arvore.inserir(60);
+        arvore.inserir(80);
+
+        // Teste de busca
+        int valorBusca = 40;
+        if (arvore.buscar(valorBusca)) {
+            System.out.println("Valor " + valorBusca + " encontrado na árvore.");
+        } else {
+            System.out.println("Valor " + valorBusca + " não está na árvore.");
+        }
+    }
+}
