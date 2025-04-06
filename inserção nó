@@ -1,0 +1,63 @@
+// Definição da classe Nó (Node)
+class No {
+    int valor;
+    No esquerda, direita;
+
+    // Construtor para criar um novo nó
+    public No(int valor) {
+        this.valor = valor;
+        this.esquerda = null;
+        this.direita = null;
+    }
+}
+
+public class ArvoreBinariaDeBusca {
+
+    // Método para inserir um valor na árvore
+    public No inserirNo(No raiz, int valor) {
+        // Se a árvore estiver vazia, cria um novo nó e retorna
+        if (raiz == null) {
+            return new No(valor);
+        }
+
+        // Se o valor for menor que o valor do nó atual, insere na subárvore esquerda
+        if (valor < raiz.valor) {
+            raiz.esquerda = inserirNo(raiz.esquerda, valor);
+        }
+        // Se o valor for maior que o valor do nó atual, insere na subárvore direita
+        else if (valor > raiz.valor) {
+            raiz.direita = inserirNo(raiz.direita, valor);
+        }
+
+        // Retorna a raiz da árvore
+        return raiz;
+    }
+
+    // Método para exibir a árvore em ordem (para verificação)
+    public void exibirEmOrdem(No raiz) {
+        if (raiz != null) {
+            exibirEmOrdem(raiz.esquerda);
+            System.out.print(raiz.valor + " ");
+            exibirEmOrdem(raiz.direita);
+        }
+    }
+
+    // Método principal para testar a inserção
+    public static void main(String[] args) {
+        ArvoreBinariaDeBusca arvore = new ArvoreBinariaDeBusca();
+        No raiz = null;
+
+        // Inserindo valores na árvore
+        raiz = arvore.inserirNo(raiz, 50);
+        raiz = arvore.inserirNo(raiz, 30);
+        raiz = arvore.inserirNo(raiz, 70);
+        raiz = arvore.inserirNo(raiz, 20);
+        raiz = arvore.inserirNo(raiz, 40);
+        raiz = arvore.inserirNo(raiz, 60);
+        raiz = arvore.inserirNo(raiz, 80);
+
+        // Exibindo a árvore em ordem
+        System.out.println("Árvore em ordem:");
+        arvore.exibirEmOrdem(raiz);
+    }
+}
