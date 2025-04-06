@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class TratamentoExcecoes {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            // Tentativa de entrada de dados
+            System.out.print("Digite um número inteiro: ");
+            int numero = scanner.nextInt();
+
+            // Tentativa de divisão por zero
+            int resultado = 100 / numero;
+            System.out.println("Resultado da divisão: " + resultado);
+
+        } catch (ArithmeticException e) {
+            // Captura erro de divisão por zero
+            System.out.println("Erro: Divisão por zero não é permitida.");
+        } catch (java.util.InputMismatchException e) {
+            // Captura erro de entrada inválida
+            System.out.println("Erro: Você deve digitar um número inteiro.");
+        } catch (Exception e) {
+            // Captura qualquer outra exceção genérica
+            System.out.println("Erro inesperado: " + e.getMessage());
+        } finally {
+            // Sempre será executado
+            System.out.println("Fim do programa.");
+            scanner.close();
+        }
+    }
+}
